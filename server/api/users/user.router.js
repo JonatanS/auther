@@ -6,6 +6,7 @@ var router = require('express').Router(),
 var HttpError = require('../../utils/HttpError');
 var User = require('./user.model');
 
+
 router.param('id', function (req, res, next, id) {
 	User.findById(id).exec()
 	.then(function (user) {
@@ -15,6 +16,7 @@ router.param('id', function (req, res, next, id) {
 	})
 	.then(null, next);
 });
+
 
 router.get('/', function (req, res, next) {
 	User.find({}).exec()
@@ -32,6 +34,20 @@ router.post('/', function (req, res, next) {
 	.then(null, next);
 });
 
+router.get('/login', function (req, res, next) {
+	console.log("You hit the route!")
+	console.log("Email is ", req.body.email)
+	User.find({email: 'kalo@sokum.com'})
+	.then(function (response) {
+		console.log("Success handler logs ", response)
+		res.json(response.data);
+	}, function (error) {
+		res.status(401).end();
+	})
+	.then(null, next);
+});
+
+
 router.get('/:id', function (req, res, next) {
 	req.requestedUser.getStories()
 	.then(function (stories) {
@@ -41,6 +57,7 @@ router.get('/:id', function (req, res, next) {
 	})
 	.then(null, next);
 });
+
 
 router.put('/:id', function (req, res, next) {
 	_.extend(req.requestedUser, req.body);

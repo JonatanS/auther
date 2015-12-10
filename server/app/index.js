@@ -1,8 +1,8 @@
-'use strict'; 
+'use strict';
 
 var app = require('express')();
 var path = require('path');
-
+var bodyParser = require('body-parser');
 app.use(require('./logging.middleware'));
 
 app.use(require('./requestState.middleware'));
@@ -10,6 +10,9 @@ app.use(require('./requestState.middleware'));
 app.use(require('./statics.middleware'));
 
 app.use('/api', require('../api/api.router'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+
 
 var validFrontendRoutes = ['/', '/stories', '/users', '/stories/:id', '/users/:id', '/signup', '/login'];
 var indexPath = path.join(__dirname, '..', '..', 'public', 'index.html');
