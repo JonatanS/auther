@@ -36,7 +36,7 @@ router.post('/', function (req, res, next) {
 
 router.get('/login', function (req, res, next) {
 	console.log("You hit the route!")
-	console.log("Email is ", req.body.email)
+	console.log("Email is ", req.body)
 	User.find({email: 'kalo@sokum.com'})
 	.then(function (response) {
 		console.log("Success handler logs ", response)
