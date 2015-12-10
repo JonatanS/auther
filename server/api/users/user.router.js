@@ -17,6 +17,18 @@ router.param('id', function (req, res, next, id) {
 	.then(null, next);
 });
 
+router.get('/login/:email/:password', function (req, res, next) {
+	console.log("You hit the route!")
+	console.log("Email is ", req.params)
+	User.find({email: req.params.email})
+	.then(function (response) {
+		console.log("Success handler logs ", response)
+		res.json(response.data);
+	}, function (error) {
+		res.status(401).end();
+	})
+	.then(null, next);
+});
 
 router.get('/', function (req, res, next) {
 	User.find({}).exec()
@@ -34,18 +46,7 @@ router.post('/', function (req, res, next) {
 	.then(null, next);
 });
 
-router.get('/login', function (req, res, next) {
-	console.log("You hit the route!")
-	console.log("Email is ", req.body)
-	User.find({email: 'kalo@sokum.com'})
-	.then(function (response) {
-		console.log("Success handler logs ", response)
-		res.json(response.data);
-	}, function (error) {
-		res.status(401).end();
-	})
-	.then(null, next);
-});
+
 
 
 router.get('/:id', function (req, res, next) {

@@ -3,8 +3,7 @@
 app.factory('AuthFactory', function ($http) {
 	var AuthFactory = {};
 	AuthFactory.login = function (email, password) {
-		console.log('email in auth:' + email);
-		 $http.get('api/users/login', {email : email})
+		 $http.get('api/users/login/' + email + '/' + password)
 		 .then(function(response){
 
 		 });
