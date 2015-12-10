@@ -6,6 +6,7 @@ var router = require('express').Router(),
 var HttpError = require('../../utils/HttpError');
 var Story = require('./story.model');
 
+
 router.param('id', function (req, res, next, id) {
 	Story.findById(id).exec()
 	.then(function (story) {

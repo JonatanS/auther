@@ -7,6 +7,7 @@ var HttpError = require('../../utils/HttpError');
 var User = require('./user.model');
 
 
+
 router.param('id', function (req, res, next, id) {
 	User.findById(id).exec()
 	.then(function (user) {
@@ -19,11 +20,13 @@ router.param('id', function (req, res, next, id) {
 
 router.get('/login/:email/:password', function (req, res, next) {
 	console.log("You hit the route!")
-	console.log("Email is ", req.params)
-	User.find({email: req.params.email})
-	.then(function (response) {
-		console.log("Success handler logs ", response)
-		res.json(response.data);
+	console.log("Email is ", req.params.email)
+	User.findOne({email: req.params.email, password: req.params.password}).exec()
+	.then(function (user) {
+		console.log("Success handler logs ", user)
+		//res.json(response.data);
+		req.session.userId = user._id;
+		res.json(user);
 	}, function (error) {
 		res.status(401).end();
 	})
@@ -39,7 +42,9 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-	User.create(req.body)
+	console.log('creating user: ');
+	console.log(req.body);
+	User.create({email: req.body.email, password: req.body.password})
 	.then(function (user) {
 		res.status(201).json(user);
 	})
