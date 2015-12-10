@@ -18,20 +18,6 @@ router.param('id', function (req, res, next, id) {
 	.then(null, next);
 });
 
-router.get('/login/:email/:password', function (req, res, next) {
-	console.log("You hit the route!")
-	console.log("Email is ", req.params.email)
-	User.findOne({email: req.params.email, password: req.params.password}).exec()
-	.then(function (user) {
-		console.log("Success handler logs ", user)
-		//res.json(response.data);
-		req.session.userId = user._id;
-		res.json(user);
-	}, function (error) {
-		res.status(401).end();
-	})
-	.then(null, next);
-});
 
 router.get('/', function (req, res, next) {
 	User.find({}).exec()
