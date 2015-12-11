@@ -20,7 +20,7 @@ router.get('/login/:email/:password', function (req, res, next) {
 	.then(function (user) {
 		console.log("Success handler logs ", user)
 		req.session.userId = user._id;
-		req.session.cookie.expires = new Date(Date.now() + 60000)
+		req.session.cookie.expires = new Date(Date.now() + 60000);
 		res.json(user);
 	}, function (error) {
 		res.status(401).end();
