@@ -12,6 +12,7 @@ app.factory('AuthFactory', function ($http, $location) {
 		//   })
 		 .then(function(response){
 		 	var user = response.data;
+		 	AuthFactory.currentUser = user;
 		 	//TODO: Render user page
 		 	console.log('user' + JSON.stringify(user));
 		 	$location.path('/users/' + user._id);
@@ -25,6 +26,7 @@ app.factory('AuthFactory', function ($http, $location) {
 		$http.post('auth/', {email: email, password: password})
 		.then(function(response){
 		 	var user = response.data;
+		 	AuthFactory.currentUser = user;
 		 	//TODO: Render user page
 		 	console.log('new user' + JSON.stringify(user));
 		 	$location.path('/users/' + user._id);
@@ -36,6 +38,7 @@ app.factory('AuthFactory', function ($http, $location) {
 	AuthFactory.logout = function () {
 	$http.get('auth/logout')
 	.then(function(response){
+		AuthFactory.currentUser = null;
 		$location.path('/');
 	 }, function (){
 	 	alert('problem logging out!');

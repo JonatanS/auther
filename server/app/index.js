@@ -12,10 +12,7 @@ app.use(session({
 app.use(function (req, res, next) {
   if (!req.session.counter) req.session.counter = 0;
   console.log('counter', ++req.session.counter);
-    	if (req.session.cookie.expires === 0) {
-			//logout session
-			app.redirect('/logout')
-		}
+
   next();
 });
 

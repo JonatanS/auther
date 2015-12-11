@@ -4,7 +4,14 @@ var router = require('express').Router(),
 var HttpError = require('../utils/HttpError');
 var User = require('../api/users/user.model');
 
-
+// router.get('/me', function (req, res, next) {
+// 	console.log("/me");
+// 	User.findById(req.session.userId)
+// 	.then( function (currentUser) {
+// 		req.user = currentUser;
+// 		res.send("hello Me");
+// 	});
+// });
 
 router.get('/login/:email/:password', function (req, res, next) {
 	console.log("You hit the route!")

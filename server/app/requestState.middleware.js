@@ -2,12 +2,19 @@
 
 var router = require('express').Router();
 
+
+// router.use(function (req, res, next) {
+// 	if (!req.user || !req.session.userId) {
+// 		res.redirect('/me')
+// 	}
+// 	console.log("going to next");
+// 	next();
+// });	
+
 router.use(function (req, res, next) {
 	var bodyString = '';
 	req.on('data', function (chunk) {
-		console.log('chunk: ',chunk);
 		bodyString += chunk;
-		console.log('bString: ', bodyString);
 	});
 	req.on('end', function () {
 		bodyString = bodyString || '{}';
